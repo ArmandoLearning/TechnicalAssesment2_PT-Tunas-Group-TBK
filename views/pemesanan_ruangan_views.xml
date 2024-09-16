@@ -1,0 +1,104 @@
+<odoo>
+    <!-- Master Ruangan Views -->
+    <record id="view_master_ruangan_tree" model="ir.ui.view">
+        <field name="name">ruangan.master.tree</field>
+        <field name="model">ruangan.master</field>
+        <field name="arch" type="xml">
+            <tree string="Master Ruangan">
+                <field name="name"/>
+                <field name="tipe_ruangan"/>
+                <field name="lokasi_ruangan"/>
+                <field name="kapasitas_ruangan"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_master_ruangan_form" model="ir.ui.view">
+        <field name="name">ruangan.master.form</field>
+        <field name="model">ruangan.master</field>
+        <field name="arch" type="xml">
+            <form string="Master Ruangan">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="tipe_ruangan"/>
+                        <field name="lokasi_ruangan"/>
+                        <field name="foto_ruangan" widget='image'/>
+                        <field name="kapasitas_ruangan"/>
+                        <field name="keterangan"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Pemesanan Ruangan Views -->
+    <record id="view_pemesanan_ruangan_tree" model="ir.ui.view">
+        <field name="name">ruangan.pemesanan.tree</field>
+        <field name="model">ruangan.pemesanan</field>
+        <field name="arch" type="xml">
+            <tree string="Pemesanan Ruangan">
+                <field name="name"/>
+                <field name="ruangan_id"/>
+                <field name="nama_pemesanan"/>
+                <field name="tanggal_pemesanan"/>
+                <field name="status_pemesanan"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pemesanan_ruangan_form" model="ir.ui.view">
+        <field name="name">ruangan.pemesanan.form</field>
+        <field name="model">ruangan.pemesanan</field>
+        <field name="arch" type="xml">
+            <form string="Pemesanan Ruangan">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="ruangan_id"/>
+                        <field name="nama_pemesanan"/>
+                        <field name="tanggal_pemesanan"/>
+                        <field name="status_pemesanan"/>
+                        <field name="catatan_pemesanan"/>
+                    </group>
+                    <footer>
+                        <!-- Tombol Proses Pemesanan hanya terlihat jika status_pemesanan = 'draft' -->
+                        <button name="action_ongoing" type="object" string="Proses Pemesanan"
+                            class="btn-primary"
+                            attrs="{'invisible': [('status_pemesanan', '!=', 'draft')]}"/>
+
+                        <!-- Tombol Tandai Selesai hanya terlihat jika status_pemesanan = 'ongoing' -->
+                        <button name="action_done" type="object" string="Tandai Selesai"
+                            class="btn-success"
+                            attrs="{'invisible': [('status_pemesanan', '!=', 'ongoing')]}"/>
+
+                        <!-- Tombol Cancel yang selalu terlihat -->
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_pemesanan_ruangan" model="ir.actions.act_window">
+        <field name="name">Pemesanan Ruangan</field>
+        <field name="res_model">ruangan.pemesanan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_pemesanan_ruangan_tree"/>
+    </record>
+
+    <record id="action_master_ruangan" model="ir.actions.act_window">
+        <field name="name">Master Ruangan</field>
+        <field name="res_model">ruangan.master</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_master_ruangan_tree"/>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_ruangan_management" name="Ruangan Management"/>
+
+    <menuitem id="menu_master_ruangan" name="Master Ruangan" parent="menu_ruangan_management" action="action_master_ruangan"/>
+
+    <menuitem id="menu_pemesanan_ruangan" name="Pemesanan Ruangan" parent="menu_ruangan_management" action="action_pemesanan_ruangan"/>
+</odoo>
