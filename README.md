@@ -1,45 +1,51 @@
-usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           [--super-prefix=<path>] [--config-env=<name>=<envvar>]
-           <command> [<args>]
+# Modul Manajemen Ruangan
 
-These are common Git commands used in various situations:
+Modul ini memungkinkan Anda untuk mengelola ruangan dan pemesanan dengan validasi dan pembaruan status.
 
-start a working area (see also: git help tutorial)
-   clone     Clone a repository into a new directory
-   init      Create an empty Git repository or reinitialize an existing one
+## Instalasi
 
-work on the current change (see also: git help everyday)
-   add       Add file contents to the index
-   mv        Move or rename a file, a directory, or a symlink
-   restore   Restore working tree files
-   rm        Remove files from the working tree and from the index
+1. **Tempatkan modul di direktori addons Odoo Anda:**
 
-examine the history and state (see also: git help revisions)
-   bisect    Use binary search to find the commit that introduced a bug
-   diff      Show changes between commits, commit and working tree, etc
-   grep      Print lines matching a pattern
-   log       Show commit logs
-   show      Show various types of objects
-   status    Show the working tree status
+   ```bash
+   cp -r C:\odoo14\ruangan_module\ruangan_management C:\odoo14\odoo14
+Perbarui Daftar Aplikasi Odoo:
 
-grow, mark and tweak your common history
-   branch    List, create, or delete branches
-   commit    Record changes to the repository
-   merge     Join two or more development histories together
-   rebase    Reapply commits on top of another base tip
-   reset     Reset current HEAD to the specified state
-   switch    Switch branches
-   tag       Create, list, delete or verify a tag object signed with GPG
+bash
+Salin kode
+./odoo-bin -u all
+Instal modul melalui antarmuka web Odoo:
 
-collaborate (see also: git help workflows)
-   fetch     Download objects and refs from another repository
-   pull      Fetch from and integrate with another repository or a local branch
-   push      Update remote refs along with associated objects
+Masuk ke aplikasi (Apps), cari "Manajemen Ruangan", dan klik "Install".
 
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
+Penggunaan
+Master Ruangan: Mengelola detail ruangan.
+Pemesanan Ruangan: Membuat dan mengelola pemesanan ruangan.
+Fitur
+Kendala Unik: Menjamin tidak ada nama ruangan atau nama pemesanan yang duplikat.
+Validasi: Mencegah pemesanan yang tumpang tindih untuk ruangan yang sama pada tanggal yang sama.
+Pembaruan Status: Memproses dan menandai pemesanan sebagai selesai.
+Contoh
+Untuk membuat pemesanan:
+
+Masuk ke Pemesanan Ruangan.
+Klik Create dan isi detail pemesanan.
+Gunakan Proses Pemesanan untuk memperbarui status menjadi 'On Going'.
+Gunakan Tandai Selesai untuk menandai pemesanan sebagai selesai.
+Struktur Modul
+
+Model:
+
+Master Ruangan: Menyimpan data tentang ruangan seperti nama, tipe, lokasi, foto, kapasitas, dan keterangan.
+Pemesanan Ruangan: Menyimpan data tentang pemesanan seperti nomor pemesanan, ruangan, nama pemesanan, tanggal pemesanan, status pemesanan, dan catatan pemesanan.
+Views:
+
+Daftar Master Ruangan: Menampilkan daftar ruangan dengan informasi dasar.
+Form Master Ruangan: Menampilkan formulir untuk mengedit detail ruangan.
+Daftar Pemesanan Ruangan: Menampilkan daftar pemesanan dengan informasi dasar dan status.
+Form Pemesanan Ruangan: Menampilkan formulir untuk mengedit dan memperbarui pemesanan.
+
+Validasi:
+
+Tidak diperbolehkan memesan ruangan yang sama pada tanggal yang sama.
+Nama pemesanan tidak boleh sama dengan pemesanan lain.
+Nama ruangan harus unik.
